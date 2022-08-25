@@ -1,0 +1,27 @@
+library(readr)
+library(tidyverse)
+players_pr <- read.csv(file = 'players.csv')
+
+selected_rows <- select(players_pr, "municipio","cantidad_P")
+View(players_pr)
+
+View(selected_rows)
+
+
+filtered <- filter(selected_rows, cantidad_P > 0)
+
+View(filtered)
+
+library(ggplot2)
+
+
+
+
+p <-ggplot(data=filtered, aes(x= reorder(municipio, +cantidad_P),  y=cantidad_P, )) +
+  geom_bar(stat="identity", width = 0.8, fill="lightblue") +
+  theme(axis.text.x=element_blank(),
+        axis.ticks.x=element_blank() 
+  )
+
+# Horizontal bar plot
+p + coord_flip()
